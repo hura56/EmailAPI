@@ -17,4 +17,29 @@ public class EmailTemplateRepository : IEmailTemplateRepository
     {
         return _templates.FirstOrDefault(t => t.Id == id);
     }
+
+    public void AddTemplate(EmailTemplate template)
+    {
+        template.Id = _templates.Any() ? _templates.Max(t => t.Id) + 1 : 1;
+        _templates.Add(template);
+    }
+
+    public void UpdateTemplate(EmailTemplate template)
+    {
+        var exisitng = _templates.FirstOrDefault(t => t.Id == template.Id);
+        if (exisitng != null)
+        {
+            exisitng.Subject = template.Subject;
+            exisitng.Content = template.Content;
+        }
+    }
+
+    public void DeleteTemplate(int id)
+    {
+        var template = _templates.FirstOrDefault(t => t.Id == id);
+        if (template != null)
+        {
+            _templates.Remove(template);
+        }
+    }
 }

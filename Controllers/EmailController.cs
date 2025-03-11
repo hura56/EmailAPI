@@ -19,13 +19,6 @@ public class EmailController : ControllerBase
         _templateRepository = templateRepository;
     }
 
-    [HttpGet("templates")]
-    public IActionResult GetTemplates()
-    {
-        var templates = _templateRepository.GetTemplates();
-        return Ok(templates);
-    }
-
     [HttpPost("send")]
     public async Task<IActionResult> SendEmail([FromBody] EmailRequest request)
     {
